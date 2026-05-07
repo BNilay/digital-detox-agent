@@ -1,0 +1,37 @@
+﻿@model ai.Models.Plan
+
+@{
+    ViewData["Title"] = "AI Agent Analiz Sonucu";
+}
+
+<h2>AI Agent Analiz Sonucu</h2>
+
+<div>
+    <h3>Risk Seviyesi</h3>
+    <p>@Model.RiskLevel</p>
+</div>
+
+<div>
+    <h3>Haftalık Hedef</h3>
+    <p>@Model.WeeklyGoal</p>
+</div>
+
+<div>
+    <h3>Günlük Öneri</h3>
+    <p>@Model.DailySuggestion</p>
+</div>
+
+<div>
+    <h3>Alternatif Aktivite</h3>
+    <p>@Model.AlternativeActivity</p>
+</div>
+
+<br />
+
+<a href="/Usage/Create?userId=@Model.UserId">
+    <button>Yeni Kullanım Verisi Ekle</button>
+</a>
+
+<a href="/Usage/History?userId=@Model.UserId">
+    <button>Geçmişi Gör</button>
+</a>

@@ -1,0 +1,56 @@
+﻿@model ai.ViewModels.CreateUsageRecordViewModel
+
+@{
+	ViewData["Title"] = "Kullanım Verisi Ekle";
+}
+
+<h2>Günlük Kullanım Verisi</h2>
+
+<p>Merhaba @ViewBag.UserName, bugün telefon/sosyal medya kullanımını gir.</p>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="UserId" />
+
+    <div>
+        <label>Günlük ekran süresi (saat)</label>
+        <input asp-for="ScreenTime" type="number" step="0.5" />
+    </div>
+
+    <br />
+
+    <div>
+        <label>En çok kullanılan uygulama</label>
+        <input asp-for="MostUsedApp" type="text" placeholder="Instagram, TikTok, YouTube..." />
+    </div>
+
+    <br />
+
+    <div>
+        <label>En yoğun kullanım zamanı</label>
+        <select asp-for="UsagePeriod">
+            <option value="">Seçiniz</option>
+            <option value="Sabah">Sabah</option>
+            <option value="Öğlen">Öğlen</option>
+            <option value="Akşam">Akşam</option>
+            <option value="Gece">Gece</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div>
+        <label>Kullanım nedeni</label>
+        <select asp-for="Reason">
+            <option value="">Seçiniz</option>
+            <option value="Sıkılma">Sıkılma</option>
+            <option value="Stres">Stres</option>
+            <option value="Alışkanlık">Alışkanlık</option>
+            <option value="Ders/işten kaçış">Ders/işten kaçış</option>
+            <option value="Eğlence">Eğlence</option>
+        </select>
+    </div>
+
+    <br />
+
+    <button type="submit">AI Agent Analiz Et</button>
+</form>

@@ -1,0 +1,27 @@
+﻿@model ai.ViewModels.CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Oluştur";
+}
+
+<h2>Dijital Bağımlılık Azaltma Sistemi</h2>
+
+<p>Önce kullanıcı bilgilerini ve hedef ekran süresini gir.</p>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Adınız</label>
+        <input asp-for="Name" type="text" />
+    </div>
+
+    <br />
+
+    <div>
+        <label>Hedef ekran süresi (saat)</label>
+        <input asp-for="TargetScreenTime" type="number" step="0.5" />
+    </div>
+
+    <br />
+
+    <button type="submit">Devam Et</button>
+</form>

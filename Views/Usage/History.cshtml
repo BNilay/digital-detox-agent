@@ -1,0 +1,44 @@
+﻿@model List<ai.Models.UsageRecord>
+
+@{
+    ViewData["Title"] = "Kullanım Geçmişi";
+}
+
+<h2>Kullanım Geçmişi</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>Henüz kullanım kaydı bulunmuyor.</p>
+}
+else
+{
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Ekran Süresi</th>
+                <th>En Çok Kullanılan Uygulama</th>
+                <th>Kullanım Zamanı</th>
+                <th>Kullanım Nedeni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@record.ScreenTime saat</td>
+                    <td>@record.MostUsedApp</td>
+                    <td>@record.UsagePeriod</td>
+                    <td>@record.Reason</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<br />
+
+<a href="/Usage/Create?userId=@ViewBag.UserId">
+    <button>Yeni Kullanım Verisi Ekle</button>
+</a>
