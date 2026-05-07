@@ -1,37 +1,94 @@
 ﻿@model ai.Models.Plan
 
 @{
-    ViewData["Title"] = "AI Agent Analiz Sonucu";
+    ViewData["Title"] = "Detoks Planınız";
 }
 
-<h2>AI Agent Analiz Sonucu</h2>
+<div class="container mt-5 pt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-4">
+                <div class="bg-success bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow glow-effect" style="width: 80px; height: 80px;">
+                    <i class="fa-solid fa-brain fa-2xl"></i>
+                </div>
+                <h2 class="fw-bold text-dark">Yapay Zeka Analiziniz Hazır</h2>
+                <p class="text-muted">Kullanım alışkanlıklarınız incelendi ve size özel bir dijital detoks planı oluşturuldu.</p>
+            </div>
 
-<div>
-    <h3>Risk Seviyesi</h3>
-    <p>@Model.RiskLevel</p>
+            <div class="card border-0 shadow-lg rounded-4 bg-white bg-opacity-75" style="backdrop-filter: blur(15px);">
+                <div class="card-body p-4 p-md-5">
+
+                    @if (Model != null)
+                    {
+                    <div class="alert bg-white shadow-sm border-0 rounded-3 mb-4 d-flex align-items-center">
+                        <div class="bg-danger bg-opacity-10 text-danger rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-chart-simple fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1 text-muted fw-bold">Bağımlılık Risk Seviyesi</h6>
+                            <h5 class="mb-0 text-dark fw-bold">@Model.RiskLevel</h5>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 position-relative">
+                        <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-bullseye me-2"></i> Haftalık Hedefiniz</h5>
+                        <div class="bg-white bg-opacity-50 p-3 rounded-3 shadow-sm border-start border-success border-4">
+                            <p class="mb-0 text-dark" style="font-size: 1.1rem;">@Model.WeeklyGoal</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 position-relative">
+                        <h5 class="fw-bold text-success mb-3"><i class="fa-regular fa-calendar-check me-2"></i> Günlük Tavsiye</h5>
+                        <div class="bg-white bg-opacity-50 p-3 rounded-3 shadow-sm border-start border-warning border-4">
+                            <p class="mb-0 text-dark" style="font-size: 1.1rem;">@Model.DailySuggestion</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 position-relative">
+                        <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-person-running me-2"></i> Alternatif Aktivite Önerisi</h5>
+                        <div class="bg-white bg-opacity-50 p-3 rounded-3 shadow-sm border-start border-info border-4">
+                            <p class="mb-0 text-dark" style="font-size: 1.1rem;">@Model.AlternativeActivity</p>
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="alert alert-danger">Plan verisi alınamadı. Lütfen tekrar deneyin.</div>
+                    }
+
+                    <hr class="text-muted opacity-25 my-4" />
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted small mb-3">Bu planı uygulamaya bugün başlayarak zihinsel rahatlamaya ilk adımınızı atın.</p>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success rounded-pill px-4 me-2 shadow-sm">
+                            <i class="fa-solid fa-house me-1"></i> Ana Sayfaya Dön
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<div>
-    <h3>Haftalık Hedef</h3>
-    <p>@Model.WeeklyGoal</p>
-</div>
+<style>
+    /* Yapay Zeka ikonuna yavaşça yanıp sönen tatlı bir parlama efekti */
+    .glow-effect {
+        animation: glowing 3s infinite;
+    }
 
-<div>
-    <h3>Günlük Öneri</h3>
-    <p>@Model.DailySuggestion</p>
-</div>
+    @@keyframes glowing {
+        0% {
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.2);
+        }
 
-<div>
-    <h3>Alternatif Aktivite</h3>
-    <p>@Model.AlternativeActivity</p>
-</div>
+        50% {
+            box-shadow: 0 0 20px rgba(25, 135, 84, 0.6);
+        }
 
-<br />
-
-<a href="/Usage/Create?userId=@Model.UserId">
-    <button>Yeni Kullanım Verisi Ekle</button>
-</a>
-
-<a href="/Usage/History?userId=@Model.UserId">
-    <button>Geçmişi Gör</button>
-</a>
+        100% {
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.2);
+        }
+    }
+</style>

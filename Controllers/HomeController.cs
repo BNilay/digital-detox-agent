@@ -1,3 +1,4 @@
+using ai.Data;
 using ai.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,16 +7,34 @@ namespace ai.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        // Dependency Injection ile veritabaný baðlamýný alýyoruz
+        public HomeController(AppDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        // Ana sayfadaki butona basýlýnca çalýþacak yeni metod
+        public IActionResult StartDetox()
+        {
+            // Arka planda otomatik bir misafir kullanýcý oluþturuyoruz
+            var guestUser = new User
+            {
+                Name = "Misafir",
+                TargetScreenTime = 2.0 // Varsayýlan bir hedef süre atadýk
+            };
+
+            _context.Users.Add(guestUser);
+            _context.SaveChanges(); // ID'si otomatik oluþtu
+
+            // Oluþan bu yeni ID ile doðrudan Usage(Ekran Süresi) sayfasýna yönlendiriyoruz
+            return RedirectToAction("Create", "Usage", new { userId = guestUser.Id });
         }
 
         public IActionResult Privacy()

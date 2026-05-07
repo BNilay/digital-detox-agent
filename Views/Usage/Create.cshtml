@@ -1,56 +1,102 @@
 ﻿@model ai.ViewModels.CreateUsageRecordViewModel
 
 @{
-	ViewData["Title"] = "Kullanım Verisi Ekle";
+    ViewData["Title"] = "Ekran Süresi Girişi";
 }
 
-<h2>Günlük Kullanım Verisi</h2>
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-7">
+            <div class="card border-0 shadow-lg rounded-4 bg-white bg-opacity-75" style="backdrop-filter: blur(15px);">
+                <div class="card-body p-5">
 
-<p>Merhaba @ViewBag.UserName, bugün telefon/sosyal medya kullanımını gir.</p>
+                    <div class="text-center mb-4">
+                        <div class="bg-success bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 70px; height: 70px;">
+                            <i class="fa-solid fa-mobile-screen fa-2xl"></i>
+                        </div>
+                        <h2 class="fw-bold text-dark">Merhaba @ViewBag.UserName!</h2>
+                        <p class="text-muted">Bugün dijital dünyada ne kadar vakit geçirdiğini bizimle paylaş, yapay zeka asistanın sana özel tavsiyeler hazırlasın.</p>
+                    </div>
 
-<form asp-action="Create" method="post">
-    <input type="hidden" asp-for="UserId" />
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-    <div>
-        <label>Günlük ekran süresi (saat)</label>
-        <input asp-for="ScreenTime" type="number" step="0.5" />
+                        <input type="hidden" asp-for="UserId" />
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ScreenTime" type="number" step="0.1" class="form-control border-0 shadow-sm rounded-3" placeholder="Örn: 4.5" />
+                                    <label asp-for="ScreenTime" class="text-muted"><i class="fa-regular fa-clock me-1"></i> Toplam Süre (Saat)</label>
+                                    <span asp-validation-for="ScreenTime" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="MostUsedApp" class="form-control border-0 shadow-sm rounded-3" placeholder="Örn: Instagram" />
+                                    <label asp-for="MostUsedApp" class="text-muted"><i class="fa-brands fa-app-store me-1"></i> En Çok Kullanılan Uyg.</label>
+                                    <span asp-validation-for="MostUsedApp" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="UsagePeriod" class="form-select border-0 shadow-sm rounded-3">
+                                        <option value="" selected disabled>Zaman dilimi seçin...</option>
+                                        <option value="Sabah">Sabah (Uyanır uyanmaz)</option>
+                                        <option value="Öğle">Öğle / Gün Ortası</option>
+                                        <option value="Akşam">Akşam</option>
+                                        <option value="Gece">Gece (Uyumadan önce)</option>
+                                        <option value="Tüm Gün">Tüm Gün Dağınık</option>
+                                    </select>
+                                    <label asp-for="UsagePeriod" class="text-muted"><i class="fa-regular fa-calendar-days me-1"></i> Ne Zaman?</label>
+                                    <span asp-validation-for="UsagePeriod" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select asp-for="Reason" class="form-select border-0 shadow-sm rounded-3">
+                                        <option value="" selected disabled>Kullanım amacı...</option>
+                                        <option value="Eğlence ve Sosyal Medya">Eğlence ve Sosyal Medya</option>
+                                        <option value="İş / Okul / Proje">İş / Okul / Proje</option>
+                                        <option value="İletişim ve Mesajlaşma">İletişim ve Mesajlaşma</option>
+                                        <option value="Haber / Bilgi Edinme">Haber / Bilgi Edinme</option>
+                                        <option value="Oyun">Oyun</option>
+                                    </select>
+                                    <label asp-for="Reason" class="text-muted"><i class="fa-solid fa-bullseye me-1"></i> Temel Amaç</label>
+                                    <span asp-validation-for="Reason" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4 pt-2">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm fw-bold hover-glow">
+                                <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Yapay Zeka Analizini Başlat
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <br />
+<style>
+    /* Butona özel parlama ve büyüme efekti */
+    .hover-glow {
+        transition: all 0.3s ease;
+    }
 
-    <div>
-        <label>En çok kullanılan uygulama</label>
-        <input asp-for="MostUsedApp" type="text" placeholder="Instagram, TikTok, YouTube..." />
-    </div>
+        .hover-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(25, 135, 84, 0.4) !important;
+            background-color: #218838;
+        }
+</style>
 
-    <br />
-
-    <div>
-        <label>En yoğun kullanım zamanı</label>
-        <select asp-for="UsagePeriod">
-            <option value="">Seçiniz</option>
-            <option value="Sabah">Sabah</option>
-            <option value="Öğlen">Öğlen</option>
-            <option value="Akşam">Akşam</option>
-            <option value="Gece">Gece</option>
-        </select>
-    </div>
-
-    <br />
-
-    <div>
-        <label>Kullanım nedeni</label>
-        <select asp-for="Reason">
-            <option value="">Seçiniz</option>
-            <option value="Sıkılma">Sıkılma</option>
-            <option value="Stres">Stres</option>
-            <option value="Alışkanlık">Alışkanlık</option>
-            <option value="Ders/işten kaçış">Ders/işten kaçış</option>
-            <option value="Eğlence">Eğlence</option>
-        </select>
-    </div>
-
-    <br />
-
-    <button type="submit">AI Agent Analiz Et</button>
-</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
